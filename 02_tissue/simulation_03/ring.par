@@ -1,0 +1,52 @@
+# openCARP +F ring.par
+
+simID = "simulation_03/exp"
+
+# basic setup
+meshname = "simulation_03/mesh/ring"
+dt = 200
+spacedt = 1
+timedt = 1
+gridout_i = 3
+bidomain = 0 # monodomain
+
+tend = 600 # length of simulation (ms)
+
+# ionic model
+num_imp_regions = 1
+imp_region[0].im = tenTusscherPanfilov #Query  available ionic models by calling 'bench --list-imps'
+imp_region[0].im_param = "GKs*1" # maximum conductance for slow potassium current, currently unchanged
+
+# conductivity regions
+num_gregions = 1
+gregion[0].g_il = 0.174  # intracellular conductivity along the fibers
+
+# stimulus
+num_stim = 2
+
+stim[0].name = S1
+stim[0].crct.type 0 # transmembrane current
+stim[0].pulse.strength = 100
+stim[0].ptcl.duration = 5
+stim[0].ptcl.start = 0
+stim[0].elec.geom_type = 2
+stim[0].elec.p0[0] = -500 # index 0 means x direction, index 1 y, and index 2 z
+stim[0].elec.p1[0] = 500
+stim[0].elec.p0[1] = -13000
+stim[0].elec.p1[1] = 0
+stim[0].elec.p0[2] 0
+stim[0].elec.p1[2] 100
+
+stim[1].name = S2
+stim[1].crct.type 0 # transmembrane current
+stim[1].pulse.strength = 100
+stim[1].ptcl.duration = 5
+stim[1].ptcl.start = 400
+stim[1].elec.geom_type = 2
+stim[1].elec.p0[0] = 0 # index 0 means x direction, index 1 y, and index 2 z
+stim[1].elec.p1[0] = 13000
+stim[1].elec.p0[1] = -500
+stim[1].elec.p1[1] = 500
+stim[1].elec.p0[2] 0
+stim[1].elec.p1[2] 100
+
